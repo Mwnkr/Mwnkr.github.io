@@ -47,6 +47,16 @@ defaults:
 # Pour utiliser ce mode, votre page index.html devra être modifiée
 # Vous pouvez commencer par une page d'accueil simple et l'améliorer ensuite.
 
+#----------- Configuration de la construction (Build) -----------#
+# Moteur de Markdown
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  # --- LA LIGNE MAGIQUE ---
+  # Indique à Kramdown de reconnaître et protéger les blocs MathJax
+  math_engine: mathjax
+
 #----------- Pied de page -----------#
 footer:
   links:
