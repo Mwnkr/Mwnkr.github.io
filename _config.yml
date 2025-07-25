@@ -17,7 +17,7 @@ plugins:
 #----------- Profil de l'auteur (barre latérale) -----------#
 author:
   name: "Mwnkr"
-  avatar: "/assets/images/votre-avatar.png" # Chemin vers une image, à ajouter dans votre projet
+  avatar: "/assets/images/kuriboh.png" # Chemin vers une image, à ajouter dans votre projet
   bio: "Passionné par les mathématiques et la résolution de puzzles combinatoires."
   location: "France"
   links:
