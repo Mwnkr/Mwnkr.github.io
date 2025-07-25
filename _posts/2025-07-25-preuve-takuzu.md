@@ -1,3 +1,7 @@
+---
+layout: post
+title: " Une aventure combinatoire à travers le puzzle Takuzu"
+---
 ***
 
 # Une aventure combinatoire à travers le puzzle Takuzu
