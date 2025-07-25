@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single 
 title: " Une aventure combinatoire à travers le puzzle Takuzu"
 mathjax: true
 ---
