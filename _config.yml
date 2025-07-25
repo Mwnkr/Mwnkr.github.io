@@ -1,86 +1,97 @@
 #===========================================================#
 #                   Bienvenue sur Jekyll!                   #
-#  Configuration pour le thème "Minimal Mistakes"           #
-#===========================================================#
+#         Configuration pour le thème "Hydejack"            #
+#================================e==========================#
 
 #----------- Informations de base du site -----------#
-# Titre qui apparaît dans l'en-tête
+# Titre de votre site
 title: Mon Portfolio de Recherche
 
-# Titre court pour le navigateur
-title_separator: "|"
+# Nom de l'auteur
+author: Mwnkr
 
 # Description de votre site pour les moteurs de recherche
-description: "Une collection de mes explorations et démonstrations mathématiques personnelles."
+description: >- # la description peut s'étendre sur plusieurs lignes
+  Une collection de mes explorations et démonstrations mathématiques personnelles.
+
+# Langue du site
+lang: fr
 
 # URL complète de votre site (très important!)
 # Remplacez par votre nom d'utilisateur GitHub
 url: "https://VOTRE-NOM-UTILISATEUR.github.io"
 
-#----------- Configuration du thème -----------#
-# Nom du thème distant sur GitHub
-remote_theme: "mmistakes/minimal-mistakes"
+#----------- Configuration de Hydejack -----------#
+# Hydejack offre une version PRO avec plus de fonctionnalités.
+# Pour la version gratuite, la configuration de base suffit.
 
-# Plugins requis par le thème
+# Apparence et logo
+# accent_image: /assets/img/accent.png # Image décorative
+# accent_color: '#268bd2' # Couleur d'accentuation si pas d'image
+
+# Barre latérale (sidebar)
+sidebar_sticky: true # Barre latérale fixe au défilement
+
+# Auteur (affiché dans la barre latérale)
+# Les informations sont reprises de la section `author:` plus bas.
+
+# Police d'écriture (vous pouvez choisir des polices Google Fonts)
+font: "Roboto"
+font_heading: "Roboto Slab"
+
+#----------- Plugins requis -----------#
+# Hydejack utilise ces plugins. Assurez-vous qu'ils soient dans votre Gemfile.
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag # Très utile pour le référencement
   - jekyll-include-cache
 
-#----------- Informations sur l'auteur (pour la barre latérale) -----------#
+#----------- Informations sur l'auteur (détaillées) -----------#
+# Utilisé par jekyll-seo-tag et d'autres parties du thème
 author:
-  name: "Mwnkr"
-  avatar: # "/assets/images/votre-avatar.png" # Décommentez pour ajouter une photo
-  bio: "Explorations et démonstrations mathématiques."
-  location: "Paris, France" # Optionnel
-  links:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      # Remplacez par votre nom d'utilisateur GitHub
-      url: "https://github.com/VOTRE-NOM-UTILISATEUR"
-    # Vous pouvez ajouter d'autres liens (Twitter, LinkedIn, etc.)
-    # - label: "Twitter"
-    #   icon: "fab fa-fw fa-twitter-square"
-    #   url: "https://twitter.com/VOTRE-COMPTE"
+  name: Mwnkr
+  # email: votre.email@exemple.com
+  # twitter: votrepseudo
+  github: VOTRE-NOM-UTILISATEUR # Important pour les liens sociaux
 
+# Liens sociaux affichés dans la barre latérale
+social:
+  github: VOTRE-NOM-UTILISATEUR
+  # twitter: votrepseudo
+  # linkedin: votre-profil
+  # instagram: votrecompte
 
-#----------- Configuration de la construction -----------#
-# Moteur de Markdown
+#----------- Configuration de la construction (Build) -----------#
 markdown: kramdown
 kramdown:
   input: GFM
-  syntax_highlighter: rouge # Pour la coloration du code
+  syntax_highlighter: rouge
 
 # Exclure des fichiers de la construction
 exclude:
   - Gemfile
   - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
   - README.md
   - LICENSE
 
 #----------- Valeurs par défaut -----------#
 # Définit la mise en page par défaut pour les différents types de contenu
 defaults:
-  # Pour les articles de blog
   - scope:
       path: ""
       type: posts
     values:
-      layout: single # Mise en page pour les articles
-      author_profile: true # Affiche la barre latérale de l'auteur
-      show_date: true
-      comments: false # À activer si vous configurez Disqus, etc.
-
-  # Pour toutes les autres pages
+      layout: post # Hydejack utilise la mise en page "post"
+      show_sidebar: true # Affiche la barre latérale sur les articles
   - scope:
       path: ""
       type: pages
     values:
-      layout: single
-      author_profile: true
-
-#----------- Pied de page -----------#
-footer:
-  links:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/VOTRE-NOM-UTILISATEUR"
+      layout: page
+      show_sidebar: true # Ou `false` si vous ne voulez pas de barre latérale sur les pages
