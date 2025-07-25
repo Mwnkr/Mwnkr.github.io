@@ -1,6 +1,7 @@
 ---
 layout: post
 title: " Une aventure combinatoire à travers le puzzle Takuzu"
+mathjax: true
 ---
 ***
 
