@@ -6,7 +6,7 @@
 title: Mon Portfolio de Recherche
 author: Mwnkr
 description: "Une collection de mes explorations et démonstrations mathématiques personnelles."
-url: "https://VOTRE-NOM-UTILISATEUR.github.io" # Mettez votre URL
+url: "https://mwnkr.github.io" # Mettez votre URL
 
 #----------- Thème et plugins -----------#
 remote_theme: "mmistakes/minimal-mistakes"
