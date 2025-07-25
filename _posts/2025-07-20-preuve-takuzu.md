@@ -37,7 +37,7 @@ J'ai réalisé que toute séquence valide devait être construite à partir de s
 
 La règle clé est qu'il faut alterner entre les "blocs de zéros" et les "blocs de uns". Disons que nous avons $k_0$ blocs de zéros et $k_1$ blocs de uns au total. En raison de cette alternance, leurs comptes doivent être presque identiques.
 
-Ils peuvent différer d'au plus un, ce qui signifie $|k_0 - k_1| \le 1$. Cela peut sembler inutile à préciser, mais nous serons heureux de l'avoir fait.
+Ils peuvent différer d'au plus un, ce qui signifie $\vert k_0 - k_1 \vert \le 1$. Cela peut sembler inutile à préciser, mais nous serons heureux de l'avoir fait.
 
 ### Compter les briques de construction
 Nous devons compter. La question est : devrions-nous travailler avec les blocs simples ou doubles ? Eh bien, le nombre de blocs simples doit avoir la même parité que $n$, alors que cela ne s'applique pas au nombre de blocs doubles. Nous allons donc définir le nombre de blocs doubles, ce qui induira le nombre de blocs simples.
