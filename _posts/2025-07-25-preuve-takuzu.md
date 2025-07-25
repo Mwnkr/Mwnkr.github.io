@@ -1,5 +1,3 @@
-Absolument. Voici la conversion de votre document LaTeX en Markdown, optimisée pour être lisible sur des plateformes comme GitHub Pages.
-
 ***
 
 # Une aventure combinatoire à travers le puzzle Tango
