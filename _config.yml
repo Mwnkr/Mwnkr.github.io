@@ -1,13 +1,86 @@
-# Bienvenue sur Jekyll!
-#
-# Ce fichier de configuration est pour le thème "minimal".
-# Pour en savoir plus sur la configuration : https://jekyllrb.com/docs/configuration/
+#===========================================================#
+#                   Bienvenue sur Jekyll!                   #
+#  Configuration pour le thème "Minimal Mistakes"           #
+#===========================================================#
 
-# Titre et description de votre site
+#----------- Informations de base du site -----------#
+# Titre qui apparaît dans l'en-tête
 title: Mon Portfolio de Recherche
-author: Mwnkr
-description: > # la description peut s'étendre sur plusieurs lignes
-  Une collection de mes explorations et démonstrations mathématiques personnelles.
 
-# C'est la ligne la plus importante : elle définit le thème !
-theme: minimal-mistakes-jekyll
+# Titre court pour le navigateur
+title_separator: "|"
+
+# Description de votre site pour les moteurs de recherche
+description: "Une collection de mes explorations et démonstrations mathématiques personnelles."
+
+# URL complète de votre site (très important!)
+# Remplacez par votre nom d'utilisateur GitHub
+url: "https://VOTRE-NOM-UTILISATEUR.github.io"
+
+#----------- Configuration du thème -----------#
+# Nom du thème distant sur GitHub
+remote_theme: "mmistakes/minimal-mistakes"
+
+# Plugins requis par le thème
+plugins:
+  - jekyll-feed
+  - jekyll-include-cache
+
+#----------- Informations sur l'auteur (pour la barre latérale) -----------#
+author:
+  name: "Mwnkr"
+  avatar: # "/assets/images/votre-avatar.png" # Décommentez pour ajouter une photo
+  bio: "Explorations et démonstrations mathématiques."
+  location: "Paris, France" # Optionnel
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      # Remplacez par votre nom d'utilisateur GitHub
+      url: "https://github.com/VOTRE-NOM-UTILISATEUR"
+    # Vous pouvez ajouter d'autres liens (Twitter, LinkedIn, etc.)
+    # - label: "Twitter"
+    #   icon: "fab fa-fw fa-twitter-square"
+    #   url: "https://twitter.com/VOTRE-COMPTE"
+
+
+#----------- Configuration de la construction -----------#
+# Moteur de Markdown
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge # Pour la coloration du code
+
+# Exclure des fichiers de la construction
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
+
+#----------- Valeurs par défaut -----------#
+# Définit la mise en page par défaut pour les différents types de contenu
+defaults:
+  # Pour les articles de blog
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single # Mise en page pour les articles
+      author_profile: true # Affiche la barre latérale de l'auteur
+      show_date: true
+      comments: false # À activer si vous configurez Disqus, etc.
+
+  # Pour toutes les autres pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+
+#----------- Pied de page -----------#
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/VOTRE-NOM-UTILISATEUR"
