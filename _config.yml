@@ -1,97 +1,55 @@
 #===========================================================#
-#                   Bienvenue sur Jekyll!                   #
-#         Configuration pour le thème "Hydejack"            #
-#================================e==========================#
+#      Configuration "riche" pour Minimal Mistakes          #
+#===========================================================#
 
-#----------- Informations de base du site -----------#
-# Titre de votre site
+#----------- Informations de base -----------#
 title: Mon Portfolio de Recherche
-
-# Nom de l'auteur
 author: Mwnkr
+description: "Une collection de mes explorations et démonstrations mathématiques personnelles."
+url: "https://VOTRE-NOM-UTILISATEUR.github.io" # Mettez votre URL
 
-# Description de votre site pour les moteurs de recherche
-description: >- # la description peut s'étendre sur plusieurs lignes
-  Une collection de mes explorations et démonstrations mathématiques personnelles.
-
-# Langue du site
-lang: fr
-
-# URL complète de votre site (très important!)
-# Remplacez par votre nom d'utilisateur GitHub
-url: "https://VOTRE-NOM-UTILISATEUR.github.io"
-
-#----------- Configuration de Hydejack -----------#
-# Hydejack offre une version PRO avec plus de fonctionnalités.
-# Pour la version gratuite, la configuration de base suffit.
-
-# Apparence et logo
-# accent_image: /assets/img/accent.png # Image décorative
-# accent_color: '#268bd2' # Couleur d'accentuation si pas d'image
-
-# Barre latérale (sidebar)
-sidebar_sticky: true # Barre latérale fixe au défilement
-
-# Auteur (affiché dans la barre latérale)
-# Les informations sont reprises de la section `author:` plus bas.
-
-# Police d'écriture (vous pouvez choisir des polices Google Fonts)
-font: "Roboto"
-font_heading: "Roboto Slab"
-
-#----------- Plugins requis -----------#
-# Hydejack utilise ces plugins. Assurez-vous qu'ils soient dans votre Gemfile.
+#----------- Thème et plugins -----------#
+remote_theme: "mmistakes/minimal-mistakes"
 plugins:
   - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-seo-tag # Très utile pour le référencement
   - jekyll-include-cache
 
-#----------- Informations sur l'auteur (détaillées) -----------#
-# Utilisé par jekyll-seo-tag et d'autres parties du thème
+#----------- Profil de l'auteur (barre latérale) -----------#
 author:
-  name: Mwnkr
-  # email: votre.email@exemple.com
-  # twitter: votrepseudo
-  github: VOTRE-NOM-UTILISATEUR # Important pour les liens sociaux
+  name: "Mwnkr"
+  avatar: "/assets/images/votre-avatar.png" # Chemin vers une image, à ajouter dans votre projet
+  bio: "Passionné par les mathématiques et la résolution de puzzles combinatoires."
+  location: "France"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/VOTRE-NOM-UTILISATEUR"
+    # Ajoutez d'autres liens ici
 
-# Liens sociaux affichés dans la barre latérale
-social:
-  github: VOTRE-NOM-UTILISATEUR
-  # twitter: votrepseudo
-  # linkedin: votre-profil
-  # instagram: votrecompte
-
-#----------- Configuration de la construction (Build) -----------#
-markdown: kramdown
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-
-# Exclure des fichiers de la construction
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
-  - README.md
-  - LICENSE
-
-#----------- Valeurs par défaut -----------#
-# Définit la mise en page par défaut pour les différents types de contenu
+#----------- Valeurs par défaut pour les articles -----------#
+# C'est ici que la magie opère pour enrichir vos pages
 defaults:
+  # Pour tous les articles dans le dossier /_posts/
   - scope:
       path: ""
       type: posts
     values:
-      layout: post # Hydejack utilise la mise en page "post"
-      show_sidebar: true # Affiche la barre latérale sur les articles
-  - scope:
-      path: ""
-      type: pages
-    values:
-      layout: page
-      show_sidebar: true # Ou `false` si vous ne voulez pas de barre latérale sur les pages
+      layout: single # Le layout de base pour un article
+      author_profile: true # AFFICHE la barre latérale de l'auteur
+      show_date: true
+      # --- Table des matières automatique ---
+      toc: true # AFFICHE la table des matières
+      toc_sticky: true # La rend flottante
+      toc_label: "Sur cette page" # Titre de la table des matières
+      toc_icon: "fas fa-stream" # Icône pour la table des matières
+
+#----------- Page d'accueil (en mode grille) -----------#
+# Pour utiliser ce mode, votre page index.html devra être modifiée
+# Vous pouvez commencer par une page d'accueil simple et l'améliorer ensuite.
+
+#----------- Pied de page -----------#
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/VOTRE-NOM-UTILISATEUR"
