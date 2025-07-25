@@ -1,0 +1,13 @@
+# Bienvenue sur Jekyll!
+#
+# Ce fichier de configuration est pour le thème "minimal".
+# Pour en savoir plus sur la configuration : https://jekyllrb.com/docs/configuration/
+
+# Titre et description de votre site
+title: Mon Portfolio de Recherche
+author: Mairwane LAMOUCHI
+description: > # la description peut s'étendre sur plusieurs lignes
+  Une collection de mes explorations et démonstrations mathématiques personnelles.
+
+# C'est la ligne la plus importante : elle définit le thème !
+theme: jekyll-theme-minimal
