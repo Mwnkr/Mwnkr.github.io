@@ -8,7 +8,7 @@
 >
 > Je m'attendais à une réponse rapide, mais le problème s'est avéré plus subtil que prévu. Ce document retrace le processus que j'ai suivi pour dériver une formule pour $a(n)$, le nombre de chaînes binaires avec n zéros et n uns qui évitent les séries de plus de deux chiffres identiques.
 >
-> Il s'avère que la formule est (évidemment) déjà documentée dans l'Encyclopédie en ligne des suites d'entiers comme la suite [A003440](https://oeis.org/A003440). Mais comme mon objectif était de la trouver par moi-même, j'ai pensé que le partage du voyage étape par étape avait toujours de la valeur. Ce document est ce voyage : un chemin complet et indépendant vers la solution.
+> Il s'avère que la formule est (évidemment) déjà documentée dans l'Encyclopédie en ligne des suites d'entiers comme la suite [A177790](https://oeis.org/A177790). Mais comme mon objectif était de la trouver par moi-même, j'ai pensé que le partage du voyage étape par étape avait toujours de la valeur. Ce document est ce voyage : un chemin complet et indépendant vers la solution.
 
 ***
 
