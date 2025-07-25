@@ -50,7 +50,7 @@ La même logique s'applique exactement aux blocs de uns. Si nous utilisons $j$ b
 
 ## Tout assembler
 
-Passons maintenant à l'étape finale : l'assemblage de la séquence complète. Le décompte total, $a(n)$, sera la somme de toutes les manières possibles de combiner nos ensembles de blocs de zéros et de blocs de uns. Cette intuition cruciale, $|k_0 - k_1| \le 1$, simplifie énormément les choses. Cela signifie que nous n'avons que trois scénarios à considérer.
+Passons maintenant à l'étape finale : l'assemblage de la séquence complète. Le décompte total, $a(n)$, sera la somme de toutes les manières possibles de combiner nos ensembles de blocs de zéros et de blocs de uns. Cette intuition cruciale, $\vert k_0 - k_1 \vert \le 1$, simplifie énormément les choses. Cela signifie que nous n'avons que trois scénarios à considérer.
 
 > **Note :** Pour rendre la formule générale plus fluide, nous supposerons dans ce qui suit que $\binom{n}{k} = 0$ si $k > n$ ou $k < 0$. Cela nous permet d'écrire des sommes plus propres sans trop nous soucier des bornes exactes.
 
