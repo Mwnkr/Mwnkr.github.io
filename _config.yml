@@ -55,7 +55,7 @@ kramdown:
   syntax_highlighter: rouge
   # --- LA LIGNE MAGIQUE ---
   # Indique à Kramdown de reconnaître et protéger les blocs MathJax
-  math_engine: mathjax
+  #math_engine: mathjax
 
 #----------- Pied de page -----------#
 footer:
