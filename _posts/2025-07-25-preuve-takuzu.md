@@ -1,7 +1,6 @@
 ***
 
-# Une aventure combinatoire à travers le puzzle Tango
-**Auteur :** LAMOUCHI Mairwane
+# Une aventure combinatoire à travers le puzzle Takuzu
 **Date :** 20 juillet 2025
 
 > ### Abstract
@@ -81,4 +80,4 @@ $$a(n) = \sum_{i=0}^{\lfloor n/2 \rfloor} \left( 2 \binom{n-i}{i}^2 + \binom{n-i
 
 ### Une dernière pensée
 
-Je terminerai par une note personnelle : pour un puzzle binaire aussi simple, la formule finale n'est pas ce que j'appellerais élégante. Je m'attendais à quelque chose de propre, comme une réponse basée sur une puissance de 2 (au moins calculable mentalement pour les premiers termes), pas cette somme horrible. Cela montre simplement que même une configuration simple peut mener à un résultat étonnamment compliqué, et cela en soi valait bien mon temps.
+Pour un puzzle binaire aussi simple, la formule finale n'est pas ce que j'appellerais élégante. Je m'attendais à quelque chose de propre, comme une réponse basée sur une puissance de 2 (au moins calculable mentalement pour les premiers termes), pas cette somme horrible. Cela montre simplement que même une configuration simple peut mener à un résultat étonnamment compliqué, et cela en soi valait bien mon temps.
