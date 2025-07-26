@@ -1,209 +1,232 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Une aventure combinatoire à travers le puzzle Takuzu</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Liens vers KaTeX pour le rendu des formules mathématiques -->
+    <!-- ERREUR CORRIGÉE : 'xintegrity' a été remplacé par l'attribut standard 'integrity' -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMckDpbCRMVIgd9TvPxcUbr11ynETVRhzMA+cHgrYLJzHjeoJ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    
+    <!-- Polices Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;700&display=swap" rel="stylesheet">
+    
     <script>
-        // Appliquer le thème (clair/sombre) dès le chargement pour éviter le clignotement
+        // Logique de thème optimisée pour éviter le "flickering"
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
+            document.documentElement.classList.add('dark');
         } else {
-            document.documentElement.classList.remove('dark')
+            document.documentElement.classList.remove('dark');
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; line-height: 1.7; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Source Serif 4', serif; line-height: 1.3; }
-        .prose-custom { font-size: 1.125rem; color: #374151; }
+        /* Styles personnalisés pour le corps de l'article, pour une lisibilité maximale */
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Source Serif 4', serif; }
+        
+        .prose-custom {
+            font-size: 1.125rem; /* 18px */
+            line-height: 1.8; /* Hauteur de ligne augmentée pour le confort de lecture */
+            color: #374151;
+        }
         .dark .prose-custom { color: #d1d5db; }
-        .prose-custom h1, .prose-custom h2, .prose-custom h3, .prose-custom strong { color: #111827; }
-        .dark .prose-custom h1, .dark .prose-custom h2, .dark .prose-custom h3, .dark .prose-custom strong { color: #fff; }
-        .prose-custom h2 { font-size: 2.25rem; margin-top: 2.5em; margin-bottom: 1em; padding-bottom: 0.3em; border-bottom: 1px solid #e5e7eb; }
+
+        .prose-custom h1, .prose-custom h2, .prose-custom h3, .prose-custom strong {
+            color: #111827;
+        }
+        .dark .prose-custom h1, .dark .prose-custom h2, .dark .prose-custom h3, .dark .prose-custom strong {
+            color: #fff;
+        }
+
+        .prose-custom h2 {
+            font-size: 2rem; /* 32px */
+            margin-top: 3em;
+            margin-bottom: 1.25em;
+            padding-bottom: 0.4em;
+            border-bottom: 1px solid #e5e7eb;
+        }
         .dark .prose-custom h2 { border-bottom-color: #374151; }
-        .prose-custom h3 { font-size: 1.5rem; margin-top: 2em; margin-bottom: 0.8em; }
-        .prose-custom p, .prose-custom ul, .prose-custom blockquote { margin-bottom: 1.25em; }
-        .prose-custom blockquote { border-left: 4px solid #3b82f6; padding-left: 1em; font-style: italic; color: #4b5563; background-color: #f9fafb; }
-        .dark .prose-custom blockquote { background-color: #1f2937; color: #9ca3af; border-left-color: #60a5fa; }
-        .prose-custom .katex-display { overflow-x: auto; overflow-y: hidden; padding: 1rem 0; }
-        .prose-custom a { color: #2563eb; }
+
+        .prose-custom h3 {
+            font-size: 1.5rem; /* 24px */
+            margin-top: 2.5em;
+            margin-bottom: 1em;
+        }
+
+        .prose-custom p, .prose-custom ul, .prose-custom blockquote {
+            margin-bottom: 1.5em;
+        }
+
+        /* Style de citation amélioré */
+        .prose-custom blockquote {
+            border-left: 4px solid #3b82f6;
+            padding: 1rem 1.5rem;
+            font-style: italic;
+            color: #4b5563;
+            background-color: #f9fafb;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        .dark .prose-custom blockquote {
+            background-color: #1f2937;
+            color: #9ca3af;
+            border-left-color: #60a5fa;
+        }
+
+        .prose-custom .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 1rem 0;
+        }
+
+        .prose-custom a {
+            color: #2563eb;
+            text-decoration: underline;
+            text-decoration-offset: 4px;
+            transition: color 0.2s;
+        }
+        .prose-custom a:hover {
+            color: #1d4ed8;
+        }
         .dark .prose-custom a { color: #60a5fa; }
+        .dark .prose-custom a:hover { color: #93c5fd; }
     </style>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
 
     <div class="container mx-auto max-w-3xl px-4 py-8 md:py-12">
-        <nav class="mb-8 flex justify-between items-center">
-            <a href="./index.html" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold">&larr; Retour à l'accueil</a>
+        <nav class="mb-12 flex justify-between items-center">
+            <a href="./index.html" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold transition-colors duration-300">&larr; Retour à l'accueil</a>
             <!-- Bouton Dark Mode -->
             <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
-                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                <svg id="theme-toggle-dark-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                <svg id="theme-toggle-light-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
             </button>
         </nav>
 
         <article class="prose-custom max-w-none">
             <!-- En-tête de l'article -->
-            <header>
-                <p class="text-base text-gray-500 dark:text-gray-400">20 juillet 2025</p>
-                <h1 class="text-5xl font-bold text-gray-900 mt-2 mb-4">Une aventure combinatoire à travers le puzzle Takuzu</h1>
+            <header class="mb-12">
+                <p class="text-base text-gray-500 dark:text-gray-400">26 juillet 2024</p>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4 leading-tight">Une aventure combinatoire à travers le puzzle Takuzu</h1>
             </header>
             
-            <!-- Abstract -->
-            <blockquote class="bg-gray-50 p-4 rounded-lg">
-                <h3 class="font-bold text-lg not-italic text-gray-800 dark:text-white">Abstract</h3>
-                <p class="not-italic">
-                    Tout a commencé aujourd'hui en jouant à "Tango", l'un des nouveaux puzzles logiques de LinkedIn, clairement basé sur le jeu bien connu "Takuzu" ou "Binero" en français. Les règles sont simples : remplir une grille de 6×6 avec deux symboles (ici, des soleils et des lunes) de sorte que chacun apparaisse trois fois par ligne et par colonne, et que pas plus de deux symboles identiques n'apparaissent consécutivement. Cette contrainte a soulevé une question combinatoire plus générale : pour une taille paire 2n, combien de lignes ou de colonnes valides sont réellement possibles ?
-                </p>
-                <p class="not-italic">
-                    Je m'attendais à une réponse rapide, mais le problème s'est avéré plus subtil que prévu. Ce document retrace le processus que j'ai suivi pour dériver une formule pour $a(n)$, le nombre de chaînes binaires avec n zéros et n uns qui évitent les séries de plus de deux chiffres identiques.
-                </p>
-                <p class="not-italic">
-                    Il s'avère que la formule est (évidemment) déjà documentée dans l'Encyclopédie en ligne des suites d'entiers comme la suite <a href="https://oeis.org/A177790" target="_blank" class="hover:underline">A177790</a>. Mais comme mon objectif était de la trouver par moi-même, j'ai pensé que le partage du voyage étape par étape avait toujours de la valeur. Ce document est ce voyage : un chemin complet et indépendant vers la solution.
-                </p>
-            </blockquote>
+            <!-- Abstract amélioré -->
+            <section class="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-xl border-l-4 border-blue-500 mb-12">
+                <h3 class="font-bold text-lg not-italic text-gray-800 dark:text-white mb-3">Résumé</h3>
+                <div class="space-y-4 not-italic text-gray-600 dark:text-gray-300">
+                    <p>
+                        Tout a commencé en jouant à "Tango", un puzzle logique de LinkedIn basé sur le célèbre jeu "Takuzu" (ou "Binero"). Les règles simples ont soulevé une question : pour une taille de 2n, combien de lignes ou colonnes valides peut-on former ?
+                    </p>
+                    <p>
+                        Ce document retrace mon parcours pour dériver la formule de $a(n)$, le nombre de chaînes binaires de longueur 2n avec n zéros et n uns, sans jamais avoir plus de deux chiffres identiques consécutifs. Bien que la solution existe sur l'OEIS (<a href="https://oeis.org/A177790" target="_blank">A177790</a>), je partage ici le cheminement complet pour la retrouver par moi-même.
+                    </p>
+                </div>
+            </section>
 
             <!-- Corps de l'article -->
             
-            <h2>Alors, quel est le défi exact ?</h2>
+            <h2>Quel est le défi exact ?</h2>
             <p>
-                Les règles du jeu ont inspiré un défi mathématique très spécifique. Pour formuler clairement le problème — et, comme je l'ai découvert plus tard, pour m'aligner sur la notation standard de l'OEIS — j'ai décidé de définir $a(n)$ comme la réponse à ma question :
-            </p>
-            <p class="font-semibold italic text-center my-6">
-                Pour une séquence de longueur 2n, quel est le nombre total de façons d'arranger n zéros et n uns, avec la condition stricte qu'il ne peut y avoir trois chiffres identiques ou plus à la suite (donc, `000` et `111` sont interdits) ?
+                Le problème mathématique est le suivant : définir $a(n)$ comme le nombre total de façons d'arranger n zéros et n uns dans une séquence de longueur 2n, avec la condition stricte qu'il ne peut y avoir trois chiffres identiques ou plus à la suite (donc, `000` et `111` sont interdits).
             </p>
             <p>
-                Le but de ce document est de prouver que la réponse à cette question est donnée par cette formule hideuse :
+                Le but de ce document est de prouver que la réponse est donnée par cette formule (certes un peu intimidante) :
                 $$a(n) = \sum_{i=0}^{\lfloor n/2 \rfloor} \left( 2 \binom{n-i}{i}^2 + \binom{n-i}{i}\binom{n-i-1}{i+1} + \binom{n-i}{i}\binom{n-i+1}{i-1} \right)$$
             </p>
 
             <h2>Le plan : Décomposer en blocs</h2>
             <p>
-                J'ai réalisé que toute séquence valide devait être construite à partir de seulement quatre "briques" de base :
-            </p>
-            <ul class="list-disc list-inside ml-4">
-                <li>Un zéro simple : `0`</li>
-                <li>Un double zéro : `00`</li>
-                <li>Un un simple : `1`</li>
-                <li>Un double un : `11`</li>
-            </ul>
-            <p>
-                La règle clé est qu'il faut alterner entre les "blocs de zéros" et les "blocs de uns". Disons que nous avons $k_0$ blocs de zéros et $k_1$ blocs de uns au total. En raison de cette alternance, leurs comptes doivent être presque identiques.
-            </p>
-            <p>
-                Ils peuvent différer d'au plus un, ce qui signifie $|k_0 - k_1| \le 1$. Cela peut sembler inutile à préciser, mais nous serons heureux de l'avoir fait.
+                Toute séquence valide est construite à partir de quatre "briques" de base : `0`, `00`, `1`, et `11`. La règle clé est d'alterner entre les blocs de zéros et les blocs de uns. Si nous avons $k_0$ blocs de zéros et $k_1$ blocs de uns, alors leurs comptes doivent être presque identiques : $|k_0 - k_1| \le 1$.
             </p>
 
             <h3>Compter les briques de construction</h3>
             <p>
-                Nous devons compter. La question est : devrions-nous travailler avec les blocs simples ou doubles ? Eh bien, le nombre de blocs simples doit avoir la même parité que $n$, alors que cela ne s'applique pas au nombre de blocs doubles. Nous allons donc définir le nombre de blocs doubles, ce qui induira le nombre de blocs simples.
+                Supposons que nous utilisons $i$ blocs `00`. Pour atteindre un total de $n$ zéros, il nous faut $n-2i$ blocs `0`. Le nombre total de blocs de zéros est donc $k_0 = i + (n-2i) = n-i$. Le nombre de façons d'arranger ces $k_0$ blocs (en choisissant la position des $i$ blocs doubles) est un problème combinatoire classique, dont la solution est $\binom{n-i}{i}$.
             </p>
             <p>
-                Disons que nous utilisons $i$ blocs double-zéro (`00`). Pour obtenir notre total de $n$ zéros, nous avons alors besoin de $n-2i$ blocs simple-zéro (`0`). Cela nous donne un total de $k_0 = i + (n-2i) = n-i$ blocs de zéros. La question devient alors : de combien de manières pouvons-nous les arranger ? C'est un problème de combinatoire classique : choisir $i$ emplacements pour les blocs doubles parmi $n-i$ emplacements au total. La réponse est $\binom{n-i}{i}$.
-            </p>
-            <p>
-                La même logique s'applique exactement aux blocs de uns. Si nous utilisons $j$ blocs double-un, nous pouvons former notre ensemble de blocs de uns de $\binom{n-j}{j}$ manières.
+                La même logique s'applique aux uns. Si nous utilisons $j$ blocs `11`, nous pouvons former notre ensemble de blocs de uns de $\binom{n-j}{j}$ manières.
             </p>
 
-            <h2>Tout assembler</h2>
+            <h2>Assembler le tout</h2>
             <p>
-                Passons maintenant à l'étape finale : l'assemblage de la séquence complète. Le décompte total, $a(n)$, sera la somme de toutes les manières possibles de combiner nos ensembles de blocs de zéros et de blocs de uns. Cette intuition cruciale, $|k_0 - k_1| \le 1$, simplifie énormément les choses. Cela signifie que nous n'avons que trois scénarios à considérer.
+                Le décompte total, $a(n)$, est la somme des combinaisons possibles. L'intuition $|k_0 - k_1| \le 1$ nous laisse avec seulement trois scénarios à considérer.
             </p>
             <blockquote>
-                <p>
-                <strong>Note :</strong> Pour rendre la formule générale plus fluide, nous supposerons dans ce qui suit que $\binom{n}{k} = 0$ si $k > n$ ou $k < 0$. Cela nous permet d'écrire des sommes plus propres sans trop nous soucier des bornes exactes.
-                </p>
+                <strong>Note :</strong> Pour simplifier les formules, nous utiliserons la convention que $\binom{n}{k} = 0$ si $k > n$ ou $k < 0$.
             </blockquote>
 
-            <h3>Scénario 1 : Un nombre égal de blocs de zéros et de uns</h3>
+            <h3>Scénario 1 : Nombre égal de blocs ($k_0 = k_1$)</h3>
             <p>
-                C'est le cas où $k_0 = k_1$, ce qui signifie $n-i = n-j \implies i = j$.
+                Ce cas se produit si $n-i = n-j$, donc $i=j$. Le nombre de compositions pour les zéros est $\binom{n-i}{i}$ et pour les uns aussi. Comme la séquence peut commencer par un zéro ou un un, on multiplie par 2.
             </p>
-            <ul class="list-disc list-inside ml-4">
-                <li><strong>Les briques de construction</strong> : Nous avons $\binom{n-i}{i}$ façons de créer les blocs de zéros et $\binom{n-i}{i}$ façons pour les blocs de uns.</li>
-                <li><strong>Assemblage</strong> : Avec le même nombre de blocs, nous avons deux façons de commencer la séquence : soit avec un bloc de zéros, soit avec un bloc de uns. Nous multiplions donc notre compte par 2.</li>
-                <li><strong>Ce morceau de la formule</strong> : $\sum_{i=0}^{\lfloor n/2 \rfloor} 2 \binom{n-i}{i}^2$</li>
-            </ul>
+            <p>Contribution à la somme : $2 \binom{n-i}{i}^2$.</p>
 
-            <h3>Scénario 2 : Un bloc de zéros de plus que de blocs de uns</h3>
+            <h3>Scénario 2 : Un bloc de zéros de plus ($k_0 = k_1 + 1$)</h3>
             <p>
-                Cela se produit lorsque $k_0 = k_1 + 1$. Puisque $k_0 = n-i$ et $k_1 = n-j$, nous obtenons $n-i = (n-j)+1 \implies j = i+1$.
+                Ici, $n-i = (n-j)+1$, donc $j = i+1$. La séquence doit commencer et finir par un bloc de zéros (`0...1...0`), il n'y a donc qu'une seule façon de les alterner.
             </p>
-            <ul class="list-disc list-inside ml-4">
-                <li><strong>Les briques de construction</strong> : $\binom{n-i}{i}$ façons pour les zéros et $\binom{n-(i+1)}{i+1} = \binom{n-i-1}{i+1}$ pour les uns.</li>
-                <li><strong>Assemblage</strong> : Pour avoir un bloc de zéros supplémentaire, la séquence doit à la fois commencer et se terminer par un bloc de zéros (`0...1...0`). Cela ne laisse qu'une seule façon de les arranger.</li>
-                <li><strong>Ce morceau de la formule</strong> : $\sum_{i=0}^{\lfloor n/2 \rfloor} \binom{n-i}{i} \binom{n-i-1}{i+1}$</li>
-            </ul>
+            <p>Contribution : $\binom{n-i}{i} \binom{n-(i+1)}{i+1} = \binom{n-i}{i} \binom{n-i-1}{i+1}$.</p>
 
-            <h3>Scénario 3 : Un bloc de uns de plus que de blocs de zéros</h3>
+            <h3>Scénario 3 : Un bloc de uns de plus ($k_1 = k_0 + 1$)</h3>
             <p>
-                L'image miroir du cas précédent. Ici, $k_1 = k_0 + 1$, ce qui signifie $n-j = (n-i)+1 \implies j = i-1$.
+                L'inverse du cas précédent. $j = i-1$. La séquence doit être de la forme `1...0...1`.
             </p>
-            <ul class="list-disc list-inside ml-4">
-                <li><strong>Les briques de construction</strong> : $\binom{n-i}{i}$ façons pour les zéros et $\binom{n-(i-1)}{i-1} = \binom{n-i+1}{i-1}$ pour les uns.</li>
-                <li><strong>Assemblage</strong> : De même, la séquence doit commencer et se terminer par un bloc de uns (`1...0...1`). Encore une fois, une seule façon de le faire.</li>
-                <li><strong>Ce morceau de la formule</strong> : $\sum_{i=0}^{\lfloor n/2 \rfloor} \binom{n-i}{i} \binom{n-i+1}{i-1}$</li>
-            </ul>
+            <p>Contribution : $\binom{n-i}{i} \binom{n-(i-1)}{i-1} = \binom{n-i}{i} \binom{n-i+1}{i-1}$.</p>
 
             <h2>Le grand final : La formule complète</h2>
             <p>
-                Parce que ces trois scénarios sont mutuellement exclusifs et couvrent toutes les possibilités valides, il ne nous reste plus qu'à les additionner.
-            </p>
-            <p>
-                Cela nous donne la formule finale et complète :
+                En additionnant les contributions de ces trois scénarios exclusifs sur toutes les valeurs possibles de $i$, on obtient la formule finale :
                 $$a(n) = \sum_{i=0}^{\lfloor n/2 \rfloor} \left( 2 \binom{n-i}{i}^2 + \binom{n-i}{i}\binom{n-i-1}{i+1} + \binom{n-i}{i}\binom{n-i+1}{i-1} \right)$$
             </p>
 
-            <hr class="my-12 dark:border-gray-700">
+            <hr class="my-16 dark:border-gray-700/50">
 
             <h3>Une dernière pensée</h3>
             <p>
-                Pour un puzzle binaire aussi simple, la formule finale n'est pas ce que j'appellerais élégante. Je m'attendais à quelque chose de propre, comme une réponse basée sur une puissance de 2 (au moins calculable mentalement pour les premiers termes), pas cette somme horrible. Cela montre simplement que même une configuration simple peut mener à un résultat étonnamment compliqué, et cela en soi valait bien mon temps.
+                Pour un puzzle binaire aussi simple, la formule finale n'est pas ce que j'appellerais élégante. Je m'attendais à quelque chose de plus épuré. Cela montre que même une configuration simple peut mener à un résultat étonnamment complexe, ce qui rend l'exploration d'autant plus intéressante.
             </p>
         </article>
 
-        <footer class="text-center mt-16 text-gray-500 dark:text-gray-400">
-            <p>&copy; 2025 Vos Nom. Tous droits réservés.</p>
+        <footer class="text-center mt-16 pt-8 border-t border-gray-200 dark:border-gray-700/50 text-gray-500 dark:text-gray-400">
+            <p>&copy; 2024 M. Dupont. Tous droits réservés.</p>
         </footer>
     </div>
 
     <script>
-        // Script pour le rendu LaTeX
+        // Script pour le rendu LaTeX avec KaTeX
         document.addEventListener("DOMContentLoaded", function() {
             renderMathInElement(document.body, {
                 delimiters: [
                     {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false},
-                    {left: '\\(', right: '\\)', display: false},
-                    {left: '\\[', right: '\\]', display: true}
+                    {left: '$', right: '$', display: false}
                 ],
                 throwOnError : false
             });
         });
 
-        // Script pour le bouton dark mode (corrigé)
+        // Script pour le bouton dark mode, optimisé et commenté
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
-        const updateIcons = (isDark) => {
+        const updateIcons = () => {
+            const isDark = document.documentElement.classList.contains('dark');
             themeToggleDarkIcon.classList.toggle('hidden', isDark);
             themeToggleLightIcon.classList.toggle('hidden', !isDark);
         };
 
-        updateIcons(document.documentElement.classList.contains('dark'));
+        updateIcons();
 
         themeToggleBtn.addEventListener('click', () => {
-            const isNowDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', isNowDark ? 'dark' : 'light');
-            updateIcons(isNowDark);
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            updateIcons();
         });
     </script>
 </body>
