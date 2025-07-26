@@ -11,65 +11,54 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;700&display=swap" rel="stylesheet">
+    <script>
+        // Appliquer le thème (clair/sombre) dès le chargement pour éviter le clignotement
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.7;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Source Serif 4', serif;
-            line-height: 1.3;
-        }
-        .prose-custom {
-            font-size: 1.125rem; /* 18px */
-        }
-        .prose-custom h2 {
-            font-size: 2.25rem; /* 36px */
-            margin-top: 2.5em;
-            margin-bottom: 1em;
-            padding-bottom: 0.3em;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .prose-custom h3 {
-            font-size: 1.5rem; /* 24px */
-            margin-top: 2em;
-            margin-bottom: 0.8em;
-        }
-        .prose-custom p, 
-        .prose-custom ul,
-        .prose-custom blockquote {
-            margin-bottom: 1.25em;
-        }
-        .prose-custom blockquote {
-            border-left: 4px solid #3b82f6;
-            padding-left: 1em;
-            font-style: italic;
-            color: #4b5563;
-        }
-        .prose-custom .katex-display {
-            overflow-x: auto;
-            overflow-y: hidden;
-            padding: 1rem 0;
-        }
+        body { font-family: 'Inter', sans-serif; line-height: 1.7; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Source Serif 4', serif; line-height: 1.3; }
+        .prose-custom { font-size: 1.125rem; color: #374151; }
+        .dark .prose-custom { color: #d1d5db; }
+        .prose-custom h1, .prose-custom h2, .prose-custom h3, .prose-custom strong { color: #111827; }
+        .dark .prose-custom h1, .dark .prose-custom h2, .dark .prose-custom h3, .dark .prose-custom strong { color: #fff; }
+        .prose-custom h2 { font-size: 2.25rem; margin-top: 2.5em; margin-bottom: 1em; padding-bottom: 0.3em; border-bottom: 1px solid #e5e7eb; }
+        .dark .prose-custom h2 { border-bottom-color: #374151; }
+        .prose-custom h3 { font-size: 1.5rem; margin-top: 2em; margin-bottom: 0.8em; }
+        .prose-custom p, .prose-custom ul, .prose-custom blockquote { margin-bottom: 1.25em; }
+        .prose-custom blockquote { border-left: 4px solid #3b82f6; padding-left: 1em; font-style: italic; color: #4b5563; background-color: #f9fafb; }
+        .dark .prose-custom blockquote { background-color: #1f2937; color: #9ca3af; border-left-color: #60a5fa; }
+        .prose-custom .katex-display { overflow-x: auto; overflow-y: hidden; padding: 1rem 0; }
+        .prose-custom a { color: #2563eb; }
+        .dark .prose-custom a { color: #60a5fa; }
     </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
 
     <div class="container mx-auto max-w-3xl px-4 py-8 md:py-12">
-        <nav class="mb-8">
-            <a href="./index.html" class="text-blue-600 hover:text-blue-800 font-semibold">&larr; Retour à l'accueil</a>
+        <nav class="mb-8 flex justify-between items-center">
+            <a href="./index.html" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold">&larr; Retour à l'accueil</a>
+            <!-- Bouton Dark Mode -->
+            <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            </button>
         </nav>
 
         <article class="prose-custom max-w-none">
             <!-- En-tête de l'article -->
             <header>
-                <p class="text-base text-gray-500">20 juillet 2025</p>
+                <p class="text-base text-gray-500 dark:text-gray-400">20 juillet 2025</p>
                 <h1 class="text-5xl font-bold text-gray-900 mt-2 mb-4">Une aventure combinatoire à travers le puzzle Takuzu</h1>
             </header>
             
             <!-- Abstract -->
             <blockquote class="bg-gray-50 p-4 rounded-lg">
-                <h3 class="font-bold text-lg not-italic text-gray-800">Abstract</h3>
+                <h3 class="font-bold text-lg not-italic text-gray-800 dark:text-white">Abstract</h3>
                 <p class="not-italic">
                     Tout a commencé aujourd'hui en jouant à "Tango", l'un des nouveaux puzzles logiques de LinkedIn, clairement basé sur le jeu bien connu "Takuzu" ou "Binero" en français. Les règles sont simples : remplir une grille de 6×6 avec deux symboles (ici, des soleils et des lunes) de sorte que chacun apparaisse trois fois par ligne et par colonne, et que pas plus de deux symboles identiques n'apparaissent consécutivement. Cette contrainte a soulevé une question combinatoire plus générale : pour une taille paire 2n, combien de lignes ou de colonnes valides sont réellement possibles ?
                 </p>
@@ -77,7 +66,7 @@
                     Je m'attendais à une réponse rapide, mais le problème s'est avéré plus subtil que prévu. Ce document retrace le processus que j'ai suivi pour dériver une formule pour $a(n)$, le nombre de chaînes binaires avec n zéros et n uns qui évitent les séries de plus de deux chiffres identiques.
                 </p>
                 <p class="not-italic">
-                    Il s'avère que la formule est (évidemment) déjà documentée dans l'Encyclopédie en ligne des suites d'entiers comme la suite <a href="https://oeis.org/A177790" target="_blank" class="text-blue-600 hover:underline">A177790</a>. Mais comme mon objectif était de la trouver par moi-même, j'ai pensé que le partage du voyage étape par étape avait toujours de la valeur. Ce document est ce voyage : un chemin complet et indépendant vers la solution.
+                    Il s'avère que la formule est (évidemment) déjà documentée dans l'Encyclopédie en ligne des suites d'entiers comme la suite <a href="https://oeis.org/A177790" target="_blank" class="hover:underline">A177790</a>. Mais comme mon objectif était de la trouver par moi-même, j'ai pensé que le partage du voyage étape par étape avait toujours de la valeur. Ce document est ce voyage : un chemin complet et indépendant vers la solution.
                 </p>
             </blockquote>
 
@@ -99,7 +88,7 @@
             <p>
                 J'ai réalisé que toute séquence valide devait être construite à partir de seulement quatre "briques" de base :
             </p>
-            <ul class="list-disc list-inside">
+            <ul class="list-disc list-inside ml-4">
                 <li>Un zéro simple : `0`</li>
                 <li>Un double zéro : `00`</li>
                 <li>Un un simple : `1`</li>
@@ -137,7 +126,7 @@
             <p>
                 C'est le cas où $k_0 = k_1$, ce qui signifie $n-i = n-j \implies i = j$.
             </p>
-            <ul class="list-disc list-inside">
+            <ul class="list-disc list-inside ml-4">
                 <li><strong>Les briques de construction</strong> : Nous avons $\binom{n-i}{i}$ façons de créer les blocs de zéros et $\binom{n-i}{i}$ façons pour les blocs de uns.</li>
                 <li><strong>Assemblage</strong> : Avec le même nombre de blocs, nous avons deux façons de commencer la séquence : soit avec un bloc de zéros, soit avec un bloc de uns. Nous multiplions donc notre compte par 2.</li>
                 <li><strong>Ce morceau de la formule</strong> : $\sum_{i=0}^{\lfloor n/2 \rfloor} 2 \binom{n-i}{i}^2$</li>
@@ -147,7 +136,7 @@
             <p>
                 Cela se produit lorsque $k_0 = k_1 + 1$. Puisque $k_0 = n-i$ et $k_1 = n-j$, nous obtenons $n-i = (n-j)+1 \implies j = i+1$.
             </p>
-            <ul class="list-disc list-inside">
+            <ul class="list-disc list-inside ml-4">
                 <li><strong>Les briques de construction</strong> : $\binom{n-i}{i}$ façons pour les zéros et $\binom{n-(i+1)}{i+1} = \binom{n-i-1}{i+1}$ pour les uns.</li>
                 <li><strong>Assemblage</strong> : Pour avoir un bloc de zéros supplémentaire, la séquence doit à la fois commencer et se terminer par un bloc de zéros (`0...1...0`). Cela ne laisse qu'une seule façon de les arranger.</li>
                 <li><strong>Ce morceau de la formule</strong> : $\sum_{i=0}^{\lfloor n/2 \rfloor} \binom{n-i}{i} \binom{n-i-1}{i+1}$</li>
@@ -157,7 +146,7 @@
             <p>
                 L'image miroir du cas précédent. Ici, $k_1 = k_0 + 1$, ce qui signifie $n-j = (n-i)+1 \implies j = i-1$.
             </p>
-            <ul class="list-disc list-inside">
+            <ul class="list-disc list-inside ml-4">
                 <li><strong>Les briques de construction</strong> : $\binom{n-i}{i}$ façons pour les zéros et $\binom{n-(i-1)}{i-1} = \binom{n-i+1}{i-1}$ pour les uns.</li>
                 <li><strong>Assemblage</strong> : De même, la séquence doit commencer et se terminer par un bloc de uns (`1...0...1`). Encore une fois, une seule façon de le faire.</li>
                 <li><strong>Ce morceau de la formule</strong> : $\sum_{i=0}^{\lfloor n/2 \rfloor} \binom{n-i}{i} \binom{n-i+1}{i-1}$</li>
@@ -172,7 +161,7 @@
                 $$a(n) = \sum_{i=0}^{\lfloor n/2 \rfloor} \left( 2 \binom{n-i}{i}^2 + \binom{n-i}{i}\binom{n-i-1}{i+1} + \binom{n-i}{i}\binom{n-i+1}{i-1} \right)$$
             </p>
 
-            <hr class="my-12">
+            <hr class="my-12 dark:border-gray-700">
 
             <h3>Une dernière pensée</h3>
             <p>
@@ -180,13 +169,13 @@
             </p>
         </article>
 
-        <footer class="text-center mt-16 text-gray-500">
+        <footer class="text-center mt-16 text-gray-500 dark:text-gray-400">
             <p>&copy; 2025 Vos Nom. Tous droits réservés.</p>
         </footer>
     </div>
 
     <script>
-        // Script pour rendre les formules LaTeX
+        // Script pour le rendu LaTeX
         document.addEventListener("DOMContentLoaded", function() {
             renderMathInElement(document.body, {
                 delimiters: [
@@ -197,6 +186,24 @@
                 ],
                 throwOnError : false
             });
+        });
+
+        // Script pour le bouton dark mode (corrigé)
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        const updateIcons = (isDark) => {
+            themeToggleDarkIcon.classList.toggle('hidden', isDark);
+            themeToggleLightIcon.classList.toggle('hidden', !isDark);
+        };
+
+        updateIcons(document.documentElement.classList.contains('dark'));
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isNowDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isNowDark ? 'dark' : 'light');
+            updateIcons(isNowDark);
         });
     </script>
 </body>
