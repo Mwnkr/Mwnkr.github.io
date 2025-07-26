@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Une aventure combinatoire à travers le puzzle Takuzu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMckDpbCRMVIgd9TvPxcUbr11ynETVRhzMA+cHgrYLJzHjeoJ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Source Serif 4', serif;
+            line-height: 1.3;
+        }
+        .prose-custom {
+            font-size: 1.125rem; /* 18px */
+        }
+        .prose-custom h2 {
+            font-size: 2.25rem; /* 36px */
+            margin-top: 2.5em;
+            margin-bottom: 1em;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .prose-custom h3 {
+            font-size: 1.5rem; /* 24px */
+            margin-top: 2em;
+            margin-bottom: 0.8em;
+        }
+        .prose-custom p, 
+        .prose-custom ul,
+        .prose-custom blockquote {
+            margin-bottom: 1.25em;
+        }
+        .prose-custom blockquote {
+            border-left: 4px solid #3b82f6;
+            padding-left: 1em;
+            font-style: italic;
+            color: #4b5563;
+        }
+        .prose-custom .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 1rem 0;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <div class="container mx-auto max-w-3xl px-4 py-8 md:py-12">
+        <nav class="mb-8">
+            <a href="./index.html" class="text-blue-600 hover:text-blue-800 font-semibold">&larr; Retour à l'accueil</a>
+        </nav>
+
+        <article class="prose-custom max-w-none">
+            <!-- En-tête de l'article -->
+            <header>
+                <p class="text-base text-gray-500">20 juillet 2025</p>
+                <h1 class="text-5xl font-bold text-gray-900 mt-2 mb-4">Une aventure combinatoire à travers le puzzle Takuzu</h1>
+            </header>
+            
+            <!-- Abstract -->
+            <blockquote class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="font-bold text-lg not-italic text-gray-800">Abstract</h3>
+                <p class="not-italic">
+                    Tout a commencé aujourd'hui en jouant à "Tango", l'un des nouveaux puzzles logiques de LinkedIn, clairement basé sur le jeu bien connu "Takuzu" ou "Binero" en français. Les règles sont simples : remplir une grille de 6×6 avec deux symboles (ici, des soleils et des lunes) de sorte que chacun apparaisse trois fois par ligne et par colonne, et que pas plus de deux symboles identiques n'apparaissent consécutivement. Cette contrainte a soulevé une question combinatoire plus générale : pour une taille paire 2n, combien de lignes ou de colonnes valides sont réellement possibles ?
+                </p>
+                <p class="not-italic">
+                    Je m'attendais à une réponse rapide, mais le problème s'est avéré plus subtil que prévu. Ce document retrace le processus que j'ai suivi pour dériver une formule pour $a(n)$, le nombre de chaînes binaires avec n zéros et n uns qui évitent les séries de plus de deux chiffres identiques.
+                </p>
+                <p class="not-italic">
+                    Il s'avère que la formule est (évidemment) déjà documentée dans l'Encyclopédie en ligne des suites d'entiers comme la suite <a href="https://oeis.org/A177790" target="_blank" class="text-blue-600 hover:underline">A177790</a>. Mais comme mon objectif était de la trouver par moi-même, j'ai pensé que le partage du voyage étape par étape avait toujours de la valeur. Ce document est ce voyage : un chemin complet et indépendant vers la solution.
+                </p>
+            </blockquote>
+
+            <!-- Corps de l'article -->
+            
+            <h2>Alors, quel est le défi exact ?</h2>
+            <p>
+                Les règles du jeu ont inspiré un défi mathématique très spécifique. Pour formuler clairement le problème — et, comme je l'ai découvert plus tard, pour m'aligner sur la notation standard de l'OEIS — j'ai décidé de définir $a(n)$ comme la réponse à ma question :
+            </p>
+            <p class="font-semibold italic text-center my-6">
+                Pour une séquence de longueur 2n, quel est le nombre total de façons d'arranger n zéros et n uns, avec la condition stricte qu'il ne peut y avoir trois chiffres identiques ou plus à la suite (donc, `000` et `111` sont interdits) ?
+            </p>
+            <p>
+                Le but de ce document est de prouver que la réponse à cette question est donnée par cette formule hideuse :
+                $$a(n) = \sum_{i=0}^{\lfloor n/2 \rfloor} \left( 2 \binom{n-i}{i}^2 + \binom{n-i}{i}\binom{n-i-1}{i+1} + \binom{n-i}{i}\binom{n-i+1}{i-1} \right)$$
+            </p>
+
+            <h2>Le plan : Décomposer en blocs</h2>
+            <p>
+                J'ai réalisé que toute séquence valide devait être construite à partir de seulement quatre "briques" de base :
+            </p>
+            <ul class="list-disc list-inside">
+                <li>Un zéro simple : `0`</li>
+                <li>Un double zéro : `00`</li>
+                <li>Un un simple : `1`</li>
+                <li>Un double un : `11`</li>
+            </ul>
+            <p>
+                La règle clé est qu'il faut alterner entre les "blocs de zéros" et les "blocs de uns". Disons que nous avons $k_0$ blocs de zéros et $k_1$ blocs de uns au total. En raison de cette alternance, leurs comptes doivent être presque identiques.
+            </p>
+            <p>
+                Ils peuvent différer d'au plus un, ce qui signifie $|k_0 - k_1| \le 1$. Cela peut sembler inutile à préciser, mais nous serons heureux de l'avoir fait.
+            </p>
+
+            <h3>Compter les briques de construction</h3>
+            <p>
+                Nous devons compter. La question est : devrions-nous travailler avec les blocs simples ou doubles ? Eh bien, le nombre de blocs simples doit avoir la même parité que $n$, alors que cela ne s'applique pas au nombre de blocs doubles. Nous allons donc définir le nombre de blocs doubles, ce qui induira le nombre de blocs simples.
+            </p>
+            <p>
+                Disons que nous utilisons $i$ blocs double-zéro (`00`). Pour obtenir notre total de $n$ zéros, nous avons alors besoin de $n-2i$ blocs simple-zéro (`0`). Cela nous donne un total de $k_0 = i + (n-2i) = n-i$ blocs de zéros. La question devient alors : de combien de manières pouvons-nous les arranger ? C'est un problème de combinatoire classique : choisir $i$ emplacements pour les blocs doubles parmi $n-i$ emplacements au total. La réponse est $\binom{n-i}{i}$.
+            </p>
+            <p>
+                La même logique s'applique exactement aux blocs de uns. Si nous utilisons $j$ blocs double-un, nous pouvons former notre ensemble de blocs de uns de $\binom{n-j}{j}$ manières.
+            </p>
+
+            <h2>Tout assembler</h2>
+            <p>
+                Passons maintenant à l'étape finale : l'assemblage de la séquence complète. Le décompte total, $a(n)$, sera la somme de toutes les manières possibles de combiner nos ensembles de blocs de zéros et de blocs de uns. Cette intuition cruciale, $|k_0 - k_1| \le 1$, simplifie énormément les choses. Cela signifie que nous n'avons que trois scénarios à considérer.
+            </p>
+            <blockquote>
+                <p>
+                <strong>Note :</strong> Pour rendre la formule générale plus fluide, nous supposerons dans ce qui suit que $\binom{n}{k} = 0$ si $k > n$ ou $k < 0$. Cela nous permet d'écrire des sommes plus propres sans trop nous soucier des bornes exactes.
+                </p>
+            </blockquote>
+
+            <h3>Scénario 1 : Un nombre égal de blocs de zéros et de uns</h3>
+            <p>
+                C'est le cas où $k_0 = k_1$, ce qui signifie $n-i = n-j \implies i = j$.
+            </p>
+            <ul class="list-disc list-inside">
+                <li><strong>Les briques de construction</strong> : Nous avons $\binom{n-i}{i}$ façons de créer les blocs de zéros et $\binom{n-i}{i}$ façons pour les blocs de uns.</li>
+                <li><strong>Assemblage</strong> : Avec le même nombre de blocs, nous avons deux façons de commencer la séquence : soit avec un bloc de zéros, soit avec un bloc de uns. Nous multiplions donc notre compte par 2.</li>
+                <li><strong>Ce morceau de la formule</strong> : $\sum_{i=0}^{\lfloor n/2 \rfloor} 2 \binom{n-i}{i}^2$</li>
+            </ul>
+
+            <h3>Scénario 2 : Un bloc de zéros de plus que de blocs de uns</h3>
+            <p>
+                Cela se produit lorsque $k_0 = k_1 + 1$. Puisque $k_0 = n-i$ et $k_1 = n-j$, nous obtenons $n-i = (n-j)+1 \implies j = i+1$.
+            </p>
+            <ul class="list-disc list-inside">
+                <li><strong>Les briques de construction</strong> : $\binom{n-i}{i}$ façons pour les zéros et $\binom{n-(i+1)}{i+1} = \binom{n-i-1}{i+1}$ pour les uns.</li>
+                <li><strong>Assemblage</strong> : Pour avoir un bloc de zéros supplémentaire, la séquence doit à la fois commencer et se terminer par un bloc de zéros (`0...1...0`). Cela ne laisse qu'une seule façon de les arranger.</li>
+                <li><strong>Ce morceau de la formule</strong> : $\sum_{i=0}^{\lfloor n/2 \rfloor} \binom{n-i}{i} \binom{n-i-1}{i+1}$</li>
+            </ul>
+
+            <h3>Scénario 3 : Un bloc de uns de plus que de blocs de zéros</h3>
+            <p>
+                L'image miroir du cas précédent. Ici, $k_1 = k_0 + 1$, ce qui signifie $n-j = (n-i)+1 \implies j = i-1$.
+            </p>
+            <ul class="list-disc list-inside">
+                <li><strong>Les briques de construction</strong> : $\binom{n-i}{i}$ façons pour les zéros et $\binom{n-(i-1)}{i-1} = \binom{n-i+1}{i-1}$ pour les uns.</li>
+                <li><strong>Assemblage</strong> : De même, la séquence doit commencer et se terminer par un bloc de uns (`1...0...1`). Encore une fois, une seule façon de le faire.</li>
+                <li><strong>Ce morceau de la formule</strong> : $\sum_{i=0}^{\lfloor n/2 \rfloor} \binom{n-i}{i} \binom{n-i+1}{i-1}$</li>
+            </ul>
+
+            <h2>Le grand final : La formule complète</h2>
+            <p>
+                Parce que ces trois scénarios sont mutuellement exclusifs et couvrent toutes les possibilités valides, il ne nous reste plus qu'à les additionner.
+            </p>
+            <p>
+                Cela nous donne la formule finale et complète :
+                $$a(n) = \sum_{i=0}^{\lfloor n/2 \rfloor} \left( 2 \binom{n-i}{i}^2 + \binom{n-i}{i}\binom{n-i-1}{i+1} + \binom{n-i}{i}\binom{n-i+1}{i-1} \right)$$
+            </p>
+
+            <hr class="my-12">
+
+            <h3>Une dernière pensée</h3>
+            <p>
+                Pour un puzzle binaire aussi simple, la formule finale n'est pas ce que j'appellerais élégante. Je m'attendais à quelque chose de propre, comme une réponse basée sur une puissance de 2 (au moins calculable mentalement pour les premiers termes), pas cette somme horrible. Cela montre simplement que même une configuration simple peut mener à un résultat étonnamment compliqué, et cela en soi valait bien mon temps.
+            </p>
+        </article>
+
+        <footer class="text-center mt-16 text-gray-500">
+            <p>&copy; 2025 Vos Nom. Tous droits réservés.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Script pour rendre les formules LaTeX
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError : false
+            });
+        });
+    </script>
+</body>
+</html>
