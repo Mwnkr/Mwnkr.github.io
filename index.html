@@ -28,7 +28,7 @@
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
 
     <!-- Conteneur principal -->
-    <div class="container mx-auto max-w-4xl px-4 py-8 md:py-12">
+    <div class="container mx-auto max-w-6xl px-4 py-8 md:py-12">
 
         <!-- En-tête -->
         <header class="text-center mb-12 relative">
@@ -44,39 +44,42 @@
             </div>
         </header>
 
-        <!-- Bandeau Auteur -->
-        <section class="mb-12 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md flex items-center space-x-6">
-            <img class="w-24 h-24 rounded-full object-cover" src="https://placehold.co/100x100/EBF4FF/76A9FA?text=Moi" alt="Photo de l'auteur" onerror="this.onerror=null;this.src='https://placehold.co/100x100/EBF4FF/76A9FA?text=Moi';">
-            <div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">À propos de moi</h2>
-                <p class="mt-2 text-gray-700 dark:text-gray-300">Passionné de mathématiques, de puzzles et de code. J'explore ici les idées qui me fascinent. Remplacez ce texte par votre propre description !</p>
-            </div>
-        </section>
+        <!-- Grille de contenu principal -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
+            
+            <!-- Colonne Auteur (vertical) -->
+            <aside class="md:col-span-1">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center sticky top-8">
+                    <img class="w-24 h-24 rounded-full object-cover mx-auto mb-4" src="https://placehold.co/100x100/EBF4FF/76A9FA?text=Moi" alt="Photo de l'auteur" onerror="this.onerror=null;this.src='https://placehold.co/100x100/EBF4FF/76A9FA?text=Moi';">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">À propos de moi</h2>
+                    <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Passionné de mathématiques, de puzzles et de code. J'explore ici les idées qui me fascinent. Remplacez ce texte par votre propre description !</p>
+                </div>
+            </aside>
 
-        <!-- Section des articles -->
-        <main>
-            <h2 class="text-3xl font-bold border-b-2 border-blue-500 pb-3 mb-8 text-gray-900 dark:text-white">Articles récents</h2>
-
-            <div class="space-y-8">
-                <!-- Carte d'article 1 -->
-                <article class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl dark:hover:shadow-blue-900/50 transition-shadow duration-300">
-                    <header>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">20 juillet 2025</p>
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
-                            <a href="./article-takuzu.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
-                                Une aventure combinatoire à travers le puzzle Takuzu
-                            </a>
-                        </h3>
-                    </header>
-                    <p class="mt-4 text-gray-700 dark:text-gray-300">
-                        Une exploration du problème combinatoire derrière le puzzle Takuzu (ou Binero). Comment une simple grille 6x6 mène à une formule mathématique étonnamment complexe.
-                    </p>
-                    <footer class="mt-4">
-                        <a href="./article-takuzu.html" class="font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">Lire la suite &rarr;</a>
-                    </footer>
-                </article>
-            </div>
-        </main>
+            <!-- Colonne des articles -->
+            <main class="md:col-span-3">
+                <h2 class="text-3xl font-bold border-b-2 border-blue-500 pb-3 mb-8 text-gray-900 dark:text-white">Articles récents</h2>
+                <div class="space-y-8">
+                    <!-- Carte d'article 1 -->
+                    <article class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl dark:hover:shadow-blue-900/50 transition-shadow duration-300">
+                        <header>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">20 juillet 2025</p>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+                                <a href="./article-takuzu.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
+                                    Une aventure combinatoire à travers le puzzle Takuzu
+                                </a>
+                            </h3>
+                        </header>
+                        <p class="mt-4 text-gray-700 dark:text-gray-300">
+                            Une exploration du problème combinatoire derrière le puzzle Takuzu (ou Binero). Comment une simple grille 6x6 mène à une formule mathématique étonnamment complexe.
+                        </p>
+                        <footer class="mt-4">
+                            <a href="./article-takuzu.html" class="font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">Lire la suite &rarr;</a>
+                        </footer>
+                    </article>
+                </div>
+            </main>
+        </div>
 
         <!-- Pied de page -->
         <footer class="text-center mt-16 text-gray-500 dark:text-gray-400">
@@ -85,43 +88,33 @@
     </div>
 
     <script>
-        // Script pour le bouton dark mode
+        // Script pour le bouton dark mode (corrigé et simplifié)
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
-        // Afficher la bonne icône au chargement
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        // Fonction pour changer le thème et mettre à jour l'icône
+        const toggleTheme = () => {
+            // Vérifie si le mode sombre est actuellement activé
+            const isDark = document.documentElement.classList.toggle('dark');
+            
+            // Met à jour le localStorage avec le nouveau thème
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            // Affiche la bonne icône
+            themeToggleDarkIcon.classList.toggle('hidden', !isDark);
+            themeToggleLightIcon.classList.toggle('hidden', isDark);
+        };
+
+        // Affiche la bonne icône au chargement initial
+        if (document.documentElement.classList.contains('dark')) {
             themeToggleLightIcon.classList.remove('hidden');
         } else {
             themeToggleDarkIcon.classList.remove('hidden');
         }
 
-        themeToggleBtn.addEventListener('click', function() {
-            // Inverser les icônes
-            themeToggleDarkIcon.classList.toggle('hidden');
-            themeToggleLightIcon.classList.toggle('hidden');
-
-            // si 'theme' est dans localStorage, vérifier s'il est 'light'
-            if (localStorage.getItem('theme')) {
-                if (localStorage.getItem('theme') === 'light') {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('theme', 'light');
-                }
-            // sinon, vérifier si la classe 'dark' est présente sur <html>
-            } else {
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
-                }
-            }
-        });
+        // Ajoute l'événement au clic sur le bouton
+        themeToggleBtn.addEventListener('click', toggleTheme);
     </script>
 </body>
 </html>
