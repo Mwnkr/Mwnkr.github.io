@@ -8,6 +8,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;700&display=swap" rel="stylesheet">
+    <script>
+        // Appliquer le thème (clair/sombre) dès le chargement pour éviter le clignotement
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -17,53 +25,103 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
 
     <!-- Conteneur principal -->
-    <div class="container mx-auto max-w-4xl px-4 py-8 md:py-16">
+    <div class="container mx-auto max-w-4xl px-4 py-8 md:py-12">
 
         <!-- En-tête -->
-        <header class="text-center mb-12">
-            <h1 class="text-5xl font-bold text-gray-900">Mes écrits</h1>
-            <p class="mt-4 text-lg text-gray-600">Une collection de pensées, d'analyses et d'explorations.</p>
+        <header class="text-center mb-12 relative">
+            <h1 class="text-5xl font-bold text-gray-900 dark:text-white">Mes écrits</h1>
+            <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">Une collection de pensées, d'analyses et d'explorations.</p>
+            
+            <!-- Bouton Dark Mode -->
+            <div class="absolute top-0 right-0">
+                <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
         </header>
+
+        <!-- Bandeau Auteur -->
+        <section class="mb-12 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md flex items-center space-x-6">
+            <img class="w-24 h-24 rounded-full object-cover" src="https://placehold.co/100x100/EBF4FF/76A9FA?text=Moi" alt="Photo de l'auteur" onerror="this.onerror=null;this.src='https://placehold.co/100x100/EBF4FF/76A9FA?text=Moi';">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">À propos de moi</h2>
+                <p class="mt-2 text-gray-700 dark:text-gray-300">Passionné de mathématiques, de puzzles et de code. J'explore ici les idées qui me fascinent. Remplacez ce texte par votre propre description !</p>
+            </div>
+        </section>
 
         <!-- Section des articles -->
         <main>
-            <h2 class="text-3xl font-bold border-b-2 border-blue-500 pb-3 mb-8">Articles récents</h2>
+            <h2 class="text-3xl font-bold border-b-2 border-blue-500 pb-3 mb-8 text-gray-900 dark:text-white">Articles récents</h2>
 
-            <!-- Grille des articles -->
             <div class="space-y-8">
-
                 <!-- Carte d'article 1 -->
-                <article class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                <article class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl dark:hover:shadow-blue-900/50 transition-shadow duration-300">
                     <header>
-                        <p class="text-sm text-gray-500 mb-2">20 juillet 2025</p>
-                        <h3 class="text-2xl font-bold text-gray-900">
-                            <a href="./article-takuzu.html" class="hover:text-blue-600 transition-colors duration-300">
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">20 juillet 2025</p>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <a href="./article-takuzu.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
                                 Une aventure combinatoire à travers le puzzle Takuzu
                             </a>
                         </h3>
                     </header>
-                    <p class="mt-4 text-gray-700">
+                    <p class="mt-4 text-gray-700 dark:text-gray-300">
                         Une exploration du problème combinatoire derrière le puzzle Takuzu (ou Binero). Comment une simple grille 6x6 mène à une formule mathématique étonnamment complexe.
                     </p>
                     <footer class="mt-4">
-                        <a href="./article-takuzu.html" class="font-semibold text-blue-600 hover:text-blue-800">Lire la suite &rarr;</a>
+                        <a href="./article-takuzu.html" class="font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">Lire la suite &rarr;</a>
                     </footer>
                 </article>
-
-                <!-- Vous pourrez ajouter de nouveaux articles ici en copiant le bloc <article> ci-dessus -->
-
             </div>
         </main>
 
         <!-- Pied de page -->
-        <footer class="text-center mt-16 text-gray-500">
+        <footer class="text-center mt-16 text-gray-500 dark:text-gray-400">
             <p>&copy; 2025 Vos Nom. Tous droits réservés.</p>
         </footer>
-
     </div>
 
+    <script>
+        // Script pour le bouton dark mode
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // Afficher la bonne icône au chargement
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            // Inverser les icônes
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            // si 'theme' est dans localStorage, vérifier s'il est 'light'
+            if (localStorage.getItem('theme')) {
+                if (localStorage.getItem('theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                }
+            // sinon, vérifier si la classe 'dark' est présente sur <html>
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
