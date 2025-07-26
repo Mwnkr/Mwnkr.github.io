@@ -88,33 +88,32 @@
     </div>
 
     <script>
-        // Script pour le bouton dark mode (corrigé et simplifié)
+        // Script pour le bouton dark mode (corrigé)
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
-        // Fonction pour changer le thème et mettre à jour l'icône
-        const toggleTheme = () => {
-            // Vérifie si le mode sombre est actuellement activé
-            const isDark = document.documentElement.classList.toggle('dark');
-            
-            // Met à jour le localStorage avec le nouveau thème
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            
-            // Affiche la bonne icône
-            themeToggleDarkIcon.classList.toggle('hidden', !isDark);
-            themeToggleLightIcon.classList.toggle('hidden', isDark);
+        // Fonction pour mettre à jour l'état des icônes en fonction du thème
+        const updateIcons = (isDark) => {
+            // Si le thème est sombre, on montre l'icône soleil et on cache l'icône lune
+            themeToggleDarkIcon.classList.toggle('hidden', isDark);
+            themeToggleLightIcon.classList.toggle('hidden', !isDark);
         };
 
-        // Affiche la bonne icône au chargement initial
-        if (document.documentElement.classList.contains('dark')) {
-            themeToggleLightIcon.classList.remove('hidden');
-        } else {
-            themeToggleDarkIcon.classList.remove('hidden');
-        }
+        // Appliquer l'état initial des icônes au chargement de la page
+        updateIcons(document.documentElement.classList.contains('dark'));
 
-        // Ajoute l'événement au clic sur le bouton
-        themeToggleBtn.addEventListener('click', toggleTheme);
+        // Gérer le clic sur le bouton pour changer de thème
+        themeToggleBtn.addEventListener('click', () => {
+            // Inverser la classe 'dark' sur l'élément <html>
+            const isNowDark = document.documentElement.classList.toggle('dark');
+            
+            // Mettre à jour le localStorage pour conserver le choix
+            localStorage.setItem('theme', isNowDark ? 'dark' : 'light');
+            
+            // Mettre à jour les icônes pour refléter le nouveau thème
+            updateIcons(isNowDark);
+        });
     </script>
 </body>
 </html>
