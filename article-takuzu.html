@@ -86,7 +86,7 @@
 
         <article class="prose-custom max-w-none">
             <header class="mb-12">
-                <p class="text-base text-slate-400">26 juillet 2024</p>
+                <p class="text-base text-slate-400">20 juillet 2025</p>
                 <h1 class="text-4xl md:text-5xl font-bold text-white mt-2 mb-4 leading-tight">Une aventure combinatoire à travers le puzzle Takuzu</h1>
             </header>
             
@@ -94,10 +94,10 @@
                 <h3 class="font-bold text-lg not-italic text-white mb-3">Résumé</h3>
                 <div class="space-y-4 not-italic text-slate-400">
                     <p>
-                        Tout a commencé en jouant à "Tango", un puzzle logique de LinkedIn basé sur le célèbre jeu "Takuzu" (ou "Binero"). Les règles simples ont soulevé une question : pour une taille de 2n, combien de lignes ou colonnes valides peut-on former ?
+                        Ce matin j'ai ressorti d'un tiroir mon "Binero". Une grille 14x14 prérempli par endroit par des 0 et 1, le reste de la grille doit être remplie par déduction en sachant deux règles : chaque lignes et colonnes doivent contenir le même nombre de 0 et 1 et on ne peut pas avoir plus de deux occurences d'un même symboles consécutivement. Ces règles simples ont soulevé une question : pour une taille de 2n, combien de lignes ou colonnes valides peut-on former ?
                     </p>
                     <p>
-                        Ce document retrace mon parcours pour dériver la formule de $a(n)$, le nombre de chaînes binaires de longueur 2n avec n zéros et n uns, sans jamais avoir plus de deux chiffres identiques consécutifs. Bien que la solution existe sur l'OEIS (<a href="https://oeis.org/A177790" target="_blank">A177790</a>), je partage ici le cheminement complet pour la retrouver par moi-même.
+                        Ce document retrace mon parcours pour retrouver la formule de $a(n)$, le nombre de chaînes binaires de longueur 2n avec n zéros et n uns, sans jamais avoir plus de deux chiffres identiques consécutifs. Bien que la solution existe sur OEIS (<a href="https://oeis.org/A177790" target="_blank">A177790</a>), je partage ici le cheminement complet pour la trouver à mon tour.
                     </p>
                 </div>
             </section>
@@ -107,13 +107,13 @@
                 Le problème mathématique est le suivant : définir $a(n)$ comme le nombre total de façons d'arranger n zéros et n uns dans une séquence de longueur 2n, avec la condition stricte qu'il ne peut y avoir trois chiffres identiques ou plus à la suite (donc, `000` et `111` sont interdits).
             </p>
             <p>
-                Le but de ce document est de prouver que la réponse est donnée par cette formule (certes un peu intimidante) :
+                Le but ici est de prouver que la réponse est donnée par cette formule malheureusement barbare :
                 $$a(n) = \sum_{i=0}^{\lfloor n/2 \rfloor} \left( 2 \binom{n-i}{i}^2 + \binom{n-i}{i}\binom{n-i-1}{i+1} + \binom{n-i}{i}\binom{n-i+1}{i-1} \right)$$
             </p>
 
             <h2>Le plan : Décomposer en blocs</h2>
             <p>
-                Toute séquence valide est construite à partir de quatre "briques" de base : `0`, `00`, `1`, et `11`. La règle clé est d'alterner entre les blocs de zéros et les blocs de uns. Si nous avons $k_0$ blocs de zéros et $k_1$ blocs de uns, alors leurs comptes doivent être presque identiques : $|k_0 - k_1| \le 1$.
+                Toute séquence valide est construite à partir de quatre "briques" de base : `0`, `00`, `1`, et `11`. Toute chaîne est irrémédiablement formée par l'alternance entre les blocs de zéros et les blocs de uns. Si nous avons $k_0$ blocs de zéros et $k_1$ blocs de uns, alors leurs comptes doivent être presque identiques : $|k_0 - k_1| \le 1$.
             </p>
 
             <h3>Compter les briques de construction</h3>
@@ -126,25 +126,25 @@
 
             <h2>Assembler le tout</h2>
             <p>
-                Le décompte total, $a(n)$, est la somme des combinaisons possibles. L'intuition $|k_0 - k_1| \le 1$ nous laisse avec seulement trois scénarios à considérer.
+                Le décompte total, $a(n)$, est la somme des combinaisons possibles. L'intuition $|k_0 - k_1| \le 1$ nous laisse avec seulement trois cas à considérer.
             </p>
             <blockquote>
                 <strong>Note :</strong> Pour simplifier les formules, nous utiliserons la convention que $\binom{n}{k} = 0$ si $k > n$ ou $k < 0$.
             </blockquote>
 
-            <h3>Scénario 1 : Nombre égal de blocs ($k_0 = k_1$)</h3>
+            <h3>Cas 1 : Nombre égal de blocs ($k_0 = k_1$)</h3>
             <p>
                 Ce cas se produit si $n-i = n-j$, donc $i=j$. Le nombre de compositions pour les zéros est $\binom{n-i}{i}$ et pour les uns aussi. Comme la séquence peut commencer par un zéro ou un un, on multiplie par 2.
             </p>
             <p>Contribution à la somme : $2 \binom{n-i}{i}^2$.</p>
 
-            <h3>Scénario 2 : Un bloc de zéros de plus ($k_0 = k_1 + 1$)</h3>
+            <h3>Cas 2 : Un bloc de zéros de plus ($k_0 = k_1 + 1$)</h3>
             <p>
                 Ici, $n-i = (n-j)+1$, donc $j = i+1$. La séquence doit commencer et finir par un bloc de zéros (`0...1...0`), il n'y a donc qu'une seule façon de les alterner.
             </p>
             <p>Contribution : $\binom{n-i}{i} \binom{n-(i+1)}{i+1} = \binom{n-i}{i} \binom{n-i-1}{i+1}$.</p>
 
-            <h3>Scénario 3 : Un bloc de uns de plus ($k_1 = k_0 + 1$)</h3>
+            <h3>Cas 3 : Un bloc de uns de plus ($k_1 = k_0 + 1$)</h3>
             <p>
                 L'inverse du cas précédent. $j = i-1$. La séquence doit être de la forme `1...0...1`.
             </p>
