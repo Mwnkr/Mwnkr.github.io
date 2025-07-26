@@ -3,157 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio d'accueil | M. Dupont</title>
+    <title>Portfolio | Maths & Cryptographie</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;700&display=swap" rel="stylesheet">
-    <script>
-        // Logique de thème optimisée pour éviter le "flickering" (scintillement)
-        // On vérifie le thème préféré et on applique la classe 'dark' à l'élément <html> avant même le rendu de la page.
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Définition des polices pour une meilleure organisation */
-        body {
-            font-family: 'Inter', sans-serif;
+        body { 
+            font-family: 'Inter', sans-serif; 
+            /* Ajout d'un motif de fond subtil pour un look technique */
+            background-color: #0f172a; /* bg-slate-900 */
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 0);
+            background-size: 25px 25px;
         }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Source Serif 4', serif;
+        h1, h2, h3, h4, h5, h6 { font-family: 'Source Serif 4', serif; }
+        .card-glow {
+            transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+        }
+        .group:hover .card-glow {
+            border-color: rgba(59, 130, 246, 0.5); /* border-blue-500/50 */
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); /* Ombre bleue */
         }
     </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-300 transition-colors duration-300">
+<body class="bg-slate-900 text-slate-300">
 
-    <!-- Conteneur principal avec une largeur maximale et un centrage automatique -->
     <div class="container mx-auto max-w-5xl px-4 py-8 md:py-16">
 
-        <!-- En-tête amélioré -->
-        <header class="mb-16 relative">
-            <div class="text-center">
-                <h1 class="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white">Mes écrits</h1>
-                <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">Une collection de pensées, d'analyses et d'explorations.</p>
-            </div>
-            
-            <!-- Bouton Dark Mode positionné avec soin -->
-            <div class="absolute top-0 right-0">
-                <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 transition-all duration-300">
-                    <!-- CORRECTION: L'état initial des icônes est maintenant géré correctement. Une icône est cachée par défaut. -->
-                    <svg id="theme-toggle-dark-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                </button>
-            </div>
+        <header class="mb-16 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-white">Mes Écrits</h1>
+            <p class="mt-4 text-lg text-slate-400">Explorations en mathématiques et cryptographie.</p>
         </header>
 
-        <!-- Grille de contenu principal responsive -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
             
-            <!-- Colonne Auteur (verticale) -->
             <aside class="lg:col-span-1">
-                <div class="bg-white dark:bg-gray-800/50 p-6 rounded-xl shadow-md text-center sticky top-8 border border-gray-200 dark:border-gray-700">
-                    <img class="w-28 h-28 rounded-full object-cover mx-auto mb-4 ring-4 ring-offset-4 ring-blue-500 dark:ring-offset-gray-800" src="https://placehold.co/120x120/EBF4FF/76A9FA?text=M.D." alt="Photo de l'auteur" onerror="this.onerror=null;this.src='https://placehold.co/120x120/EBF4FF/76A9FA?text=M.D.';">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mt-6">M. Dupont</h2>
-                    <p class="mt-2 text-base text-gray-700 dark:text-gray-300">Passionné de mathématiques, de puzzles et de code. J'explore ici les idées qui me fascinent.</p>
+                <div class="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg text-center sticky top-8 border border-slate-700">
+                    <!-- Avatar SVG thématique -->
+                    <div class="w-28 h-28 mx-auto mb-4 flex items-center justify-center">
+                       <svg class="w-full h-full text-blue-500" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
+                           <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line>
+                       </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mt-6">M. Dupont</h2>
+                    <p class="mt-2 text-base text-slate-400">Passionné par l'élégance des preuves mathématiques et les défis de la cryptographie moderne.</p>
                 </div>
             </aside>
 
-            <!-- Colonne des articles -->
             <main class="lg:col-span-2">
-                <h2 class="text-3xl font-bold border-b-2 border-blue-500 pb-3 mb-8 text-gray-900 dark:text-white">Articles récents</h2>
+                <h2 class="text-3xl font-bold border-b-2 border-blue-500/30 pb-3 mb-8 text-white">Articles Récents</h2>
                 <div class="space-y-10">
-                    <!-- Carte d'article 1 -->
-                    <article class="group bg-white dark:bg-gray-800/50 p-6 rounded-xl shadow-md hover:shadow-xl dark:hover:shadow-blue-900/40 transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500">
-                        <header>
-                            <div class="flex justify-between items-center mb-2">
-                                <p class="text-sm text-gray-500 dark:text-gray-400">26 juillet 2024</p>
-                                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">Mathématiques</span>
-                            </div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
-                                <a href="./article-takuzu.html" class="group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                                    Une aventure combinatoire à travers le puzzle Takuzu
-                                </a>
-                            </h3>
-                        </header>
-                        <p class="mt-4 text-gray-700 dark:text-gray-300">
-                            Une exploration du problème combinatoire derrière le puzzle Takuzu (ou Binero). Comment une simple grille 6x6 mène à une formule mathématique étonnamment complexe.
-                        </p>
-                        <footer class="mt-6">
-                            <a href="./article-takuzu.html" class="font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Lire la suite &rarr;</a>
-                        </footer>
+                    <!-- Article 1 -->
+                    <article class="group">
+                        <div class="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 card-glow">
+                            <header>
+                                <div class="flex justify-between items-center mb-2">
+                                    <p class="text-sm text-slate-400">26 juillet 2024</p>
+                                    <span class="bg-blue-500/10 text-blue-400 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                                        <i data-lucide="calculator" class="w-3 h-3"></i>Mathématiques
+                                    </span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white">
+                                    <a href="./article-takuzu.html" class="group-hover:text-blue-400 transition-colors duration-300">
+                                        Une aventure combinatoire à travers le puzzle Takuzu
+                                    </a>
+                                </h3>
+                            </header>
+                            <p class="mt-4 text-slate-400">
+                                Une exploration du problème combinatoire derrière le puzzle Takuzu. Comment une simple grille mène à une formule mathématique complexe.
+                            </p>
+                            <footer class="mt-6">
+                                <a href="./article-takuzu.html" class="font-semibold text-blue-400 group-hover:underline">Lire la suite &rarr;</a>
+                            </footer>
+                        </div>
                     </article>
-
-                    <!-- Carte d'article 2 (Exemple) -->
-                    <article class="group bg-white dark:bg-gray-800/50 p-6 rounded-xl shadow-md hover:shadow-xl dark:hover:shadow-green-900/40 transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-green-500 dark:hover:border-green-500">
-                        <header>
-                            <div class="flex justify-between items-center mb-2">
-                                <p class="text-sm text-gray-500 dark:text-gray-400">15 juin 2024</p>
-                                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Programmation</span>
-                            </div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
-                                <a href="#" class="group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300">
-                                    Optimisation des requêtes en base de données
-                                </a>
-                            </h3>
-                        </header>
-                        <p class="mt-4 text-gray-700 dark:text-gray-300">
-                            Quelques techniques et astuces pour accélérer vos applications en optimisant les interactions avec votre base de données.
-                        </p>
-                        <footer class="mt-6">
-                            <a href="#" class="font-semibold text-green-600 dark:text-green-400 group-hover:underline">Lire la suite &rarr;</a>
-                        </footer>
+                    
+                    <!-- Article 2 -->
+                    <article class="group">
+                        <div class="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 card-glow">
+                            <header>
+                                <div class="flex justify-between items-center mb-2">
+                                    <p class="text-sm text-slate-400">18 mai 2024</p>
+                                    <span class="bg-blue-500/10 text-blue-400 text-xs font-medium px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                                       <i data-lucide="key-round" class="w-3 h-3"></i>Cryptographie
+                                    </span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white">
+                                    <a href="#" class="group-hover:text-blue-400 transition-colors duration-300">
+                                        L'Échange de clés Diffie-Hellman : une introduction
+                                    </a>
+                                </h3>
+                            </header>
+                            <p class="mt-4 text-slate-400">
+                                Comment deux parties peuvent s'accorder sur une clé secrète partagée sur un canal non sécurisé. Une pierre angulaire de la cryptographie moderne.
+                            </p>
+                            <footer class="mt-6">
+                                <a href="#" class="font-semibold text-blue-400 group-hover:underline">Lire la suite &rarr;</a>
+                            </footer>
+                        </div>
                     </article>
                 </div>
             </main>
         </div>
 
-        <!-- Pied de page amélioré -->
-        <footer class="text-center mt-20 pt-8 border-t border-gray-200 dark:border-gray-700/50 text-gray-500 dark:text-gray-400">
+        <footer class="text-center mt-20 pt-8 border-t border-slate-700/50 text-slate-500">
             <p>&copy; 2024 M. Dupont. Tous droits réservés.</p>
         </footer>
     </div>
-
     <script>
-        // CORRECTION: Le script du bouton dark mode a été entièrement ré-écrit pour plus de clarté et de robustesse.
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-        // Fonction pour mettre à jour la visibilité des icônes en fonction du thème
-        const updateIconsVisibility = () => {
-            if (document.documentElement.classList.contains('dark')) {
-                // En mode sombre : on montre le soleil, on cache la lune.
-                themeToggleDarkIcon.classList.add('hidden');
-                themeToggleLightIcon.classList.remove('hidden');
-            } else {
-                // En mode clair : on montre la lune, on cache le soleil.
-                themeToggleDarkIcon.classList.remove('hidden');
-                themeToggleLightIcon.classList.add('hidden');
-            }
-        };
-
-        // Mettre à jour les icônes dès le chargement du script pour correspondre au thème initial
-        // (défini par le script dans le <head>).
-        updateIconsVisibility();
-
-        // Gérer le clic sur le bouton pour changer de thème
-        themeToggleBtn.addEventListener('click', () => {
-            // Inverser la classe 'dark' sur l'élément <html>
-            document.documentElement.classList.toggle('dark');
-            
-            // Mettre à jour le localStorage pour conserver le choix de l'utilisateur
-            if (document.documentElement.classList.contains('dark')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
-            
-            // Mettre à jour les icônes pour refléter le nouveau thème
-            updateIconsVisibility();
-        });
+      lucide.createIcons();
     </script>
 </body>
 </html>
