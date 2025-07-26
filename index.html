@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes écrits | Accueil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Source Serif 4', serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Conteneur principal -->
+    <div class="container mx-auto max-w-4xl px-4 py-8 md:py-16">
+
+        <!-- En-tête -->
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-gray-900">Mes écrits</h1>
+            <p class="mt-4 text-lg text-gray-600">Une collection de pensées, d'analyses et d'explorations.</p>
+        </header>
+
+        <!-- Section des articles -->
+        <main>
+            <h2 class="text-3xl font-bold border-b-2 border-blue-500 pb-3 mb-8">Articles récents</h2>
+
+            <!-- Grille des articles -->
+            <div class="space-y-8">
+
+                <!-- Carte d'article 1 -->
+                <article class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <header>
+                        <p class="text-sm text-gray-500 mb-2">20 juillet 2025</p>
+                        <h3 class="text-2xl font-bold text-gray-900">
+                            <a href="./article-takuzu.html" class="hover:text-blue-600 transition-colors duration-300">
+                                Une aventure combinatoire à travers le puzzle Takuzu
+                            </a>
+                        </h3>
+                    </header>
+                    <p class="mt-4 text-gray-700">
+                        Une exploration du problème combinatoire derrière le puzzle Takuzu (ou Binero). Comment une simple grille 6x6 mène à une formule mathématique étonnamment complexe.
+                    </p>
+                    <footer class="mt-4">
+                        <a href="./article-takuzu.html" class="font-semibold text-blue-600 hover:text-blue-800">Lire la suite &rarr;</a>
+                    </footer>
+                </article>
+
+                <!-- Vous pourrez ajouter de nouveaux articles ici en copiant le bloc <article> ci-dessus -->
+
+            </div>
+        </main>
+
+        <!-- Pied de page -->
+        <footer class="text-center mt-16 text-gray-500">
+            <p>&copy; 2025 Vos Nom. Tous droits réservés.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
